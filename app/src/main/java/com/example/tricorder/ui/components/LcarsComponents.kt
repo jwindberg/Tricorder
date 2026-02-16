@@ -13,6 +13,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -148,7 +151,7 @@ fun LcarsScaffold(
                             .padding(start = 8.dp) // innerGap
                     ) {
                         LcarsNavButton(
-                            text = currentMode.title, // "ACCELERATION"
+                            text = stringResource(currentMode.titleResId), // "ACCELERATION"
                             color = currentMode.color,
                             modifier = Modifier.fillMaxSize(),
                             onClick = {} // Title isn't clickable? well NavButton is.

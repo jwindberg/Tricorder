@@ -38,6 +38,8 @@ import com.example.tricorder.ui.components.LcarsBargraph
 import com.example.tricorder.ui.components.LcarsHeaderBarElement
 import com.example.tricorder.ui.theme.LcarsSourceColors
 import com.example.tricorder.viewmodel.CommViewModel
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 
 @Composable
 fun EmsScreen(
@@ -89,7 +91,7 @@ fun EmsScreen(
             
             // --- CELLULAR SECTION ---
             LcarsHeaderBarElement(
-                text = "Cellular",
+                text = stringResource(R.string.cellular),
                 color = LcarsSourceColors.COL_COM,
                 modifier = Modifier.fillMaxWidth().height(40.dp)
             )
@@ -97,7 +99,7 @@ fun EmsScreen(
             Spacer(modifier = Modifier.height(8.dp))
             
             Text(
-                text = "OPERATOR: ${commData.operatorName}",
+                text = stringResource(R.string.operator_prefix, commData.operatorName),
                 color = LcarsSourceColors.COL_COM,
                 fontFamily = FontFamily.Monospace,
                 fontSize = 18.sp
@@ -107,7 +109,7 @@ fun EmsScreen(
             
             Row(modifier = Modifier.fillMaxWidth().height(60.dp)) {
                 Text(
-                    text = "SIGNAL: ${commData.signalDbm} dBm",
+                    text = stringResource(R.string.signal_dbm_format, commData.signalDbm),
                     color = LcarsSourceColors.COL_COM,
                     fontFamily = FontFamily.Monospace,
                     modifier = Modifier.align(Alignment.CenterVertically).width(120.dp)
@@ -131,7 +133,7 @@ fun EmsScreen(
             
             // --- WIFI SECTION ---
             LcarsHeaderBarElement(
-                text = "WiFi",
+                text = stringResource(R.string.wifi),
                 color = LcarsSourceColors.COL_COM,
                 modifier = Modifier.fillMaxWidth().height(40.dp)
             )
@@ -139,22 +141,23 @@ fun EmsScreen(
             Spacer(modifier = Modifier.height(8.dp))
             
             if (commData.isWifiEnabled) {
-                if (commData.wifiSsid != null) {
+                val ssid = commData.wifiSsid
+                if (ssid != null) {
                     Text(
-                        text = "CONNECTED: ${commData.wifiSsid}",
+                        text = stringResource(R.string.connected_prefix, ssid),
                         color = LcarsSourceColors.COL_COM,
                         fontFamily = FontFamily.Monospace,
                         fontSize = 16.sp
                     )
                     Text(
-                        text = "SIGNAL: ${commData.wifiRssi} dBm",
+                        text = stringResource(R.string.signal_dbm_format, commData.wifiRssi),
                         color = LcarsSourceColors.COL_COM,
                         fontFamily = FontFamily.Monospace,
                         fontSize = 16.sp
                     )
                 } else {
                     Text(
-                        text = "ENABLED - SCANNING...",
+                        text = stringResource(R.string.scanning),
                         color = LcarsSourceColors.COL_COM,
                         fontFamily = FontFamily.Monospace,
                         fontSize = 16.sp
@@ -162,7 +165,7 @@ fun EmsScreen(
                 }
             } else {
                 Text(
-                    text = "DISABLED",
+                    text = stringResource(R.string.disabled),
                     color = LcarsSourceColors.COL_COM,
                     fontFamily = FontFamily.Monospace,
                     fontSize = 16.sp
@@ -211,8 +214,8 @@ fun EmsScreen(
             verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("EMS SENSORS OFFLINE", color = Color.Red)
-            Text("REQUIRES PHONE & LOCATION PERMISSIONS", color = Color.Red)
+            Text(stringResource(R.string.ems_offline), color = Color.Red)
+            Text(stringResource(R.string.req_perms), color = Color.Red)
             Button(onClick = { 
                 launcher.launch(
                     arrayOf(
@@ -221,7 +224,7 @@ fun EmsScreen(
                     )
                 ) 
             }) {
-                Text("INITIALIZE SENSORS")
+                Text(stringResource(R.string.initialize_sensors))
             }
         }
     }

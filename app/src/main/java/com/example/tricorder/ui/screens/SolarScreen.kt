@@ -29,6 +29,8 @@ import coil.request.ImageRequest
 import com.example.tricorder.ui.components.LcarsHeaderBarElement
 import com.example.tricorder.ui.theme.LcarsSourceColors
 import com.example.tricorder.viewmodel.SolarViewModel
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 
 @Composable
 fun SolarScreen(
@@ -40,7 +42,7 @@ fun SolarScreen(
         
         // --- SOLAR IMAGING SECTION ---
         LcarsHeaderBarElement(
-            text = "Solar Imaging",
+            text = stringResource(R.string.solar_imaging),
             color = LcarsSourceColors.COL_SOL,
             modifier = Modifier.fillMaxWidth().height(40.dp)
         )
@@ -48,7 +50,7 @@ fun SolarScreen(
         Spacer(modifier = Modifier.height(8.dp))
         
         Text(
-            text = "SOURCE: ${solarData.imageTitle}",
+            text = stringResource(R.string.source_prefix, solarData.imageTitle),
             color = LcarsSourceColors.COL_SOL,
             fontFamily = FontFamily.Monospace,
             fontSize = 18.sp
@@ -68,7 +70,7 @@ fun SolarScreen(
                     .data(solarData.imageUrl)
                     .crossfade(true)
                     .build(),
-                contentDescription = "Solar Image",
+                contentDescription = stringResource(R.string.image_desc),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.fillMaxSize()
             )
@@ -77,7 +79,7 @@ fun SolarScreen(
         }
         
         Text(
-            text = "TAP IMAGE TO CYCLE WAVELENGTH",
+            text = stringResource(R.string.tap_to_cycle),
             color = LcarsSourceColors.COL_SOL,
             fontFamily = FontFamily.Monospace,
             fontSize = 12.sp,
@@ -88,7 +90,7 @@ fun SolarScreen(
         
         // --- SOLAR DATA SECTION ---
         LcarsHeaderBarElement(
-            text = "Solar Indices",
+            text = stringResource(R.string.solar_indices),
             color = LcarsSourceColors.COL_SOL,
             modifier = Modifier.fillMaxWidth().height(40.dp)
         )
@@ -98,7 +100,7 @@ fun SolarScreen(
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "SUNSPOTS",
+                    text = stringResource(R.string.sunspots),
                     color = LcarsSourceColors.COL_SOL,
                     fontFamily = FontFamily.Monospace,
                     fontSize = 14.sp
@@ -113,7 +115,7 @@ fun SolarScreen(
             
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "RADIO FLUX",
+                    text = stringResource(R.string.radio_flux),
                     color = LcarsSourceColors.COL_SOL,
                     fontFamily = FontFamily.Monospace,
                     fontSize = 14.sp
@@ -128,7 +130,7 @@ fun SolarScreen(
             
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = "FLARES",
+                    text = stringResource(R.string.flares),
                     color = LcarsSourceColors.COL_SOL,
                     fontFamily = FontFamily.Monospace,
                     fontSize = 14.sp
@@ -145,7 +147,7 @@ fun SolarScreen(
         Spacer(modifier = Modifier.height(16.dp))
         
         Text(
-            text = "DATA: ${solarData.lastUpdate}",
+            text = stringResource(R.string.data_prefix, solarData.lastUpdate),
             color = Color.Gray,
             fontFamily = FontFamily.Monospace,
             fontSize = 12.sp

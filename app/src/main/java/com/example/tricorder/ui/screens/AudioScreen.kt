@@ -35,6 +35,8 @@ import com.example.tricorder.ui.visualizations.LcarsWaveformGraph
 import com.example.tricorder.ui.visualizations.LcarsSpectrumGraph
 import com.example.tricorder.ui.theme.LcarsSourceColors
 import com.example.tricorder.viewmodel.AudioViewModel
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 
 @Composable
 fun AudioScreen(
@@ -77,7 +79,7 @@ fun AudioScreen(
         Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             // Header
              Text(
-                text = "Acoustic Analysis",
+                text = stringResource(R.string.acoustic_analysis),
                 color = LcarsSourceColors.COL_AUD,
                 style = MaterialTheme.typography.titleMedium
             )
@@ -97,7 +99,7 @@ fun AudioScreen(
                     plotColor = LcarsSourceColors.XYZ_PLOT_COLS[0],
                     modifier = Modifier.fillMaxSize()
                 )
-                Text("Waveform", color = LcarsSourceColors.COL_AUD, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp))
+                Text(stringResource(R.string.waveform), color = LcarsSourceColors.COL_AUD, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp))
             }
             
             Spacer(modifier = Modifier.height(16.dp))
@@ -115,15 +117,15 @@ fun AudioScreen(
                     plotColor = LcarsSourceColors.XYZ_PLOT_COLS[2],
                     modifier = Modifier.fillMaxSize()
                 )
-                 Text("Spectrum", color = LcarsSourceColors.COL_AUD, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp))
+                 Text(stringResource(R.string.spectrum), color = LcarsSourceColors.COL_AUD, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp))
             }
         }
 
     } else {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("AUDIO SENSORS OFFLINE - PERMISSION DENIED", color = Color.Red)
+            Text(stringResource(R.string.audio_offline), color = Color.Red)
             Button(onClick = { launcher.launch(Manifest.permission.RECORD_AUDIO) }) {
-                Text("INITIALIZE SENSORS")
+                Text(stringResource(R.string.initialize_sensors))
             }
         }
     }

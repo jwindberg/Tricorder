@@ -13,7 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tricorder.ui.theme.LcarsSourceColors
 import com.example.tricorder.viewmodel.SensorData
-
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -228,9 +229,9 @@ fun GeoScreen(
         if (!hasPermission) {
             Column {
                 LcarsGeoElement(
-                    title = "Network Location",
+                    title = stringResource(R.string.network_location),
                     location = null,
-                    status = "PERMISSION REQUIRED",
+                    status = stringResource(R.string.permission_denied), // Using "PERMISSION REQUIRED" from strings as "permission_denied" or similar
                     modifier = Modifier.fillMaxWidth().height(100.dp)
                 )
                 androidx.compose.material3.Button(
@@ -244,15 +245,15 @@ fun GeoScreen(
                     },
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    Text("GRANT PERMISSION")
+                    Text(stringResource(R.string.grant_permission))
                 }
             }
         } else {
              // Network Location (Top)
             LcarsGeoElement(
-                title = "Network Location",
+                title = stringResource(R.string.network_location),
                 location = sensorData.networkLocation,
-                status = if (sensorData.networkLocation == null) "SEARCHING..." else null,
+                status = if (sensorData.networkLocation == null) stringResource(R.string.searching) else null,
                 modifier = Modifier.fillMaxWidth().wrapContentHeight()
             )
             
@@ -260,9 +261,9 @@ fun GeoScreen(
             
             // GPS Location (Middle)
             LcarsGeoElement(
-                title = "GPS Location",
+                title = stringResource(R.string.gps_location),
                 location = sensorData.gpsLocation,
-                status = if (sensorData.gpsLocation == null) "SEARCHING..." else null,
+                status = if (sensorData.gpsLocation == null) stringResource(R.string.searching) else null,
                 modifier = Modifier.fillMaxWidth().wrapContentHeight()
             )
             

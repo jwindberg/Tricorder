@@ -13,7 +13,8 @@ import androidx.compose.ui.unit.dp
 import com.example.tricorder.ui.theme.LcarsOrange
 import com.example.tricorder.ui.theme.LcarsBlue
 import com.example.tricorder.viewmodel.SensorData
-
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 @Composable
 fun EnvironmentScreen(
     sensorData: SensorData
@@ -24,15 +25,27 @@ fun EnvironmentScreen(
             .padding(16.dp)
     ) {
         Text(
-            text = "ATMOSPHERIC SENSORS",
+            text = stringResource(R.string.atmospheric_sensors),
             color = LcarsOrange,
             style = MaterialTheme.typography.titleMedium
         )
         
-        SensorRow("PRESSURE", sensorData.pressure?.let { "${"%.1f".format(it)} hPa" } ?: "UNAVAILABLE")
-        SensorRow("LIGHT", sensorData.light?.let { "${"%.0f".format(it)} lx" } ?: "UNAVAILABLE")
-        SensorRow("TEMPERATURE", sensorData.ambientTemp?.let { "${"%.1f".format(it)} C" } ?: "UNAVAILABLE")
-        SensorRow("HUMIDITY", sensorData.humidity?.let { "${"%.0f".format(it)} %" } ?: "UNAVAILABLE")
+        SensorRow(
+            stringResource(R.string.pressure_label), 
+            sensorData.pressure?.let { stringResource(R.string.pressure_format, it) } ?: stringResource(R.string.unavailable)
+        )
+        SensorRow(
+            stringResource(R.string.light_label), 
+            sensorData.light?.let { stringResource(R.string.light_format, it) } ?: stringResource(R.string.unavailable)
+        )
+        SensorRow(
+            stringResource(R.string.temp_label), 
+            sensorData.ambientTemp?.let { stringResource(R.string.temp_format, it) } ?: stringResource(R.string.unavailable)
+        )
+        SensorRow(
+            stringResource(R.string.humidity_label), 
+            sensorData.humidity?.let { stringResource(R.string.humidity_format, it) } ?: stringResource(R.string.unavailable)
+        )
     }
 }
 

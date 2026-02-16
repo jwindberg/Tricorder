@@ -201,7 +201,7 @@ fun LcarsNum3DElement(
         
         Row(modifier = Modifier.fillMaxSize()) {
             // Data Grid
-            Column(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier.weight(1f).padding(start = 16.dp)) {
                 DataRow("X", x, plotColor)
                 DataRow("Y", y, plotColor)
                 DataRow("Z", z, plotColor)

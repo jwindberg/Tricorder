@@ -8,6 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 import com.example.tricorder.ui.components.LcarsStrictScaffold
 import com.example.tricorder.ui.theme.LcarsSourceColors
 import com.example.tricorder.viewmodel.AudioViewModel
@@ -16,13 +18,13 @@ import com.example.tricorder.multimedia.SoundManager
 import androidx.compose.runtime.saveable.rememberSaveable
 import com.example.tricorder.viewmodel.CommViewModel
 
-enum class TricorderMode(val color: Color, val title: String) {
-    GRA(LcarsSourceColors.COL_GRA, "ACCELERATION"),
-    MAG(LcarsSourceColors.COL_MAG, "MAGNETIC FLUX"),
-    AUD(LcarsSourceColors.COL_AUD, "ACOUSTIC"),
-    GEO(LcarsSourceColors.COL_GEO, "GEOGRAPHIC"),
-    EMS(LcarsSourceColors.COL_COM, "EM SPECTRUM"),
-    SOL(LcarsSourceColors.COL_SOL, "SOLAR ACTIVITY")
+enum class TricorderMode(val color: Color, val titleResId: Int) {
+    GRA(LcarsSourceColors.COL_GRA, R.string.mode_gra),
+    MAG(LcarsSourceColors.COL_MAG, R.string.mode_mag),
+    AUD(LcarsSourceColors.COL_AUD, R.string.mode_aud),
+    GEO(LcarsSourceColors.COL_GEO, R.string.mode_geo),
+    EMS(LcarsSourceColors.COL_COM, R.string.mode_ems),
+    SOL(LcarsSourceColors.COL_SOL, R.string.mode_sol)
 }
 
 
@@ -32,11 +34,11 @@ fun MainScreen(
     audioViewModel: AudioViewModel = viewModel(),
     commViewModel: CommViewModel = viewModel()
 ) {
-    var currentMode by rememberSaveable { mutableStateOf(TricorderMode.GRA) }
+    var currentMode by remember { mutableStateOf(TricorderMode.GRA) }
     val sensorData by sensorViewModel.sensorData.collectAsState()
     
     // Scan State
-    var isScanning by rememberSaveable { mutableStateOf(true) } 
+    var isScanning by remember { mutableStateOf(false) } 
     
     val context = LocalContext.current
     val soundManager = remember { SoundManager(context) }
@@ -48,11 +50,29 @@ fun MainScreen(
     }
 
     // Aux Button Text
-    val auxText = if (isScanning) "HOLD" else "SCAN"
 
-    // React to scanning state and mode changes
-    LaunchedEffect(isScanning, currentMode) {
-        if (isScanning) {
+
+    // Lifecycle Handling
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    var isAppInForeground by remember { mutableStateOf(true) }
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_PAUSE) {
+                isAppInForeground = false
+            } else if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
+                isAppInForeground = true
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+    // React to scanning state, mode changes, and lifecycle
+    LaunchedEffect(isScanning, currentMode, isAppInForeground) {
+        if (isScanning && isAppInForeground) {
             // Start Sensors
             sensorViewModel.startScanning()
             
@@ -93,7 +113,7 @@ fun MainScreen(
             currentMode = mode
             soundManager.play(soundManager.switchSound)
         },
-        auxButtonText = auxText,
+        auxButtonText = stringResource(if (isScanning) R.string.hold else R.string.scan),
         onAuxButtonClick = {
             isScanning = !isScanning
             if (isScanning) {
@@ -115,7 +135,7 @@ fun MainScreen(
              TricorderMode.SOL -> SolarScreen()
              else -> Box(modifier = Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
                 androidx.compose.material3.Text(
-                    text = "Sensor: ${currentMode.name}", 
+                    text = stringResource(R.string.sensor_prefix, stringResource(currentMode.titleResId)), 
                     color = currentMode.color, 
                     fontSize = 24.sp
                 )

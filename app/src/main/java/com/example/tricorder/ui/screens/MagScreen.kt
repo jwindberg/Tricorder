@@ -9,6 +9,8 @@ import com.example.tricorder.ui.components.LcarsMagnitudeElement
 import com.example.tricorder.ui.components.LcarsNum3DElement
 import com.example.tricorder.ui.theme.LcarsSourceColors
 import com.example.tricorder.viewmodel.SensorData
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 import kotlin.math.sqrt
 import kotlin.math.atan2
 import kotlin.math.asin
@@ -63,7 +65,7 @@ fun MagScreen(sensorData: SensorData) {
             z = normZ, 
             az = az,
             alt = alt, 
-            label = "Absolute Vector",
+            label = stringResource(R.string.abs_vector),
             gridColor = gridColor, 
             plotColor = plotColor,
             modifier = Modifier.weight(1f).fillMaxWidth()
@@ -75,7 +77,7 @@ fun MagScreen(sensorData: SensorData) {
         LcarsMagnitudeElement(
             value = normMag,
             history = normHistory, 
-            label = "Absolute Magnitude",
+            label = stringResource(R.string.abs_magnitude),
             gridColor = gridColor,
             plotColor = plotColor,
             modifier = Modifier.weight(1f).fillMaxWidth()
@@ -87,7 +89,7 @@ fun MagScreen(sensorData: SensorData) {
         LcarsNum3DElement(
             x = x, y = y, z = z, // Show raw uT
             mag = mag, az = az, alt = alt,
-            label = "Absolute Data",
+            label = stringResource(R.string.abs_data),
             gridColor = gridColor,
             plotColor = plotColor,
             modifier = Modifier.weight(1f).fillMaxWidth()

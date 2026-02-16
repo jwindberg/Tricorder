@@ -22,6 +22,8 @@ import com.example.tricorder.ui.screens.TricorderMode
 
 import androidx.compose.ui.zIndex
 import com.example.tricorder.ui.theme.LcarsSourceColors
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 
 // Port of HeaderBar.java (The Top-Left Swoop)
 @Composable
@@ -69,11 +71,16 @@ fun LcarsStrictScaffold(
     content: @Composable () -> Unit
 ) {
     // Dimensions
-    // Tricorder.java: navBarWidth = minDim * 0.22f. For 400dp, that's 88dp.
-    val navWidth = 88.dp 
-    // topBarHeight = minDim * 0.15f. For 400dp, that's 60dp.
-    val topBarHeight = 65.dp // Reverted to 65.dp to prevent content sliding down
-    val titleHeight = 36.dp // Corrected to allow swoop curve (Source: ~0.6 * baseTextSize * 1.2 ~ 32-36dp)
+    // Dimensions
+    val configuration = androidx.compose.ui.platform.LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
+    val screenHeight = configuration.screenHeightDp.dp
+    val minDim = if (screenWidth < screenHeight) screenWidth else screenHeight
+
+    // Dynamic calculations based on original Tricorder spec (minDim * 0.22)
+    val navWidth = minDim * 0.22f
+    val topBarHeight = minDim * 0.16f // Roughly 64dp on 400dp width
+    val titleHeight = topBarHeight * 0.55f // Proportional title height
 
     Column(
         modifier = Modifier
@@ -89,7 +96,7 @@ fun LcarsStrictScaffold(
                 .zIndex(1f) // Ensure overlapping text draws on top of content
         ) {
             // SWOOP VIEW
-            Box(modifier = Modifier.width(navWidth * 2.2f).fillMaxHeight()) {
+            Box(modifier = Modifier.width(navWidth * 2.0f).fillMaxHeight()) {
                  LcarsSwoop(
                     color = currentMode.color,
                     navWidth = navWidth,
@@ -109,7 +116,7 @@ fun LcarsStrictScaffold(
                      Text(
                         text = com.example.tricorder.util.Stardate.getStardate(),
                         color = Color.Black,
-                        fontSize = 20.sp, // Matched to Title
+                        fontSize = (titleHeight.value * 0.55f).sp, // Dynamic Font Size
                         fontFamily = FontFamily.Monospace,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
@@ -153,10 +160,10 @@ fun LcarsStrictScaffold(
                 contentAlignment = Alignment.CenterStart // Left Aligned to use free space
             ) {
                  Text(
-                    text = currentMode.title, 
+                    text = stringResource(currentMode.titleResId), 
                     color = Color.Black,
                     fontFamily = FontFamily.Monospace,
-                    fontSize = 20.sp, // Restored to 20.sp since we have left-space
+                    fontSize = (titleHeight.value * 0.55f).sp, // Dynamic Font Size
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     softWrap = false,
@@ -184,7 +191,7 @@ fun LcarsStrictScaffold(
                         text = auxButtonText,
                         color = Color.Black,
                         fontFamily = FontFamily.Monospace,
-                        fontSize = 20.sp, 
+                        fontSize = (titleHeight.value * 0.55f).sp, 
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
                         softWrap = false,
@@ -230,7 +237,7 @@ fun LcarsStrictScaffold(
                             text = mode.name,
                             color = Color.Black,
                             fontFamily = FontFamily.Monospace,
-                            fontSize = 20.sp,
+                            fontSize = (navWidth.value * 0.22f).sp, // Dynamic based on column width
                             modifier = Modifier
                                 .padding(bottom = 4.dp, end = 4.dp)
                                 .graphicsLayer(scaleX = 0.7f, transformOrigin = TransformOrigin(1f, 1f))

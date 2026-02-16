@@ -1,3 +1,76 @@
 <resources>
     <string name="app_name">Tricorder</string>
+    
+    <!-- General -->
+    <string name="unknown">UNKNOWN</string>
+    <string name="unavailable">UNAVAILABLE</string>
+    <string name="permission_denied">PERMISSION DENIED</string>
+    <string name="grant_permission">GRANT PERMISSION</string>
+    <string name="initialize_sensors">INITIALIZE SENSORS</string>
+    
+    <!-- Modes -->
+    <string name="mode_gra">ACCELERATION</string>
+    <string name="mode_mag">MAGNETIC FLUX</string>
+    <string name="mode_aud">ACOUSTIC</string>
+    <string name="mode_geo">GEOGRAPHIC</string>
+    <string name="mode_ems">EM SPECTRUM</string>
+    <string name="mode_sol">SOLAR ACTIVITY</string>
+    
+    <!-- Main Screen -->
+    <string name="scan">SCAN</string>
+    <string name="hold">HOLD</string>
+    <string name="sensor_prefix">Sensor: %1$s</string>
+    
+    <!-- Geo Screen -->
+    <string name="network_location">Network Location</string>
+    <string name="gps_location">GPS Location</string>
+    <string name="searching">SEARCHING...</string>
+    <string name="lat_long_format">LAT: %1$.5f  LON: %2$.5f</string>
+    <string name="alt_format">ALT: %1$.1f m</string>
+    <string name="acc_format">ACC: %1$.1f m</string>
+    
+    <!-- Environment Screen -->
+    <string name="atmospheric_sensors">ATMOSPHERIC SENSORS</string>
+    <string name="pressure_label">PRESSURE</string>
+    <string name="light_label">LIGHT</string>
+    <string name="temp_label">TEMPERATURE</string>
+    <string name="humidity_label">HUMIDITY</string>
+    <string name="pressure_format">%1$.1f hPa</string>
+    <string name="light_format">%1$.0f lx</string>
+    <string name="temp_format">%1$.1f C</string>
+    <string name="humidity_format">%1$.0f %%</string>
+    
+    <!-- Solar Screen -->
+    <string name="solar_imaging">Solar Imaging</string>
+    <string name="source_prefix">SOURCE: %1$s</string>
+    <string name="tap_to_cycle">TAP IMAGE TO CYCLE WAVELENGTH</string>
+    <string name="solar_indices">Solar Indices</string>
+    <string name="sunspots">SUNSPOTS</string>
+    <string name="radio_flux">RADIO FLUX</string>
+    <string name="flares">FLARES</string>
+    <string name="data_prefix">DATA: %1$s</string>
+    <string name="image_desc">Solar Image</string>
+    
+    <!-- Audio Screen -->
+    <string name="acoustic_analysis">Acoustic Analysis</string>
+    <string name="waveform">Waveform</string>
+    <string name="spectrum">Spectrum</string>
+    <string name="audio_offline">AUDIO SENSORS OFFLINE - PERMISSION DENIED</string>
+    
+    <!-- Gravity/Mag Screen -->
+    <string name="abs_vector">Absolute Vector</string>
+    <string name="abs_magnitude">Absolute Magnitude</string>
+    <string name="abs_data">Absolute Data</string>
+    
+    <!-- EMS Screen -->
+    <string name="cellular">Cellular</string>
+    <string name="operator_prefix">OPERATOR: %1$s</string>
+    <string name="signal_dbm_format">SIGNAL: %1$d dBm</string>
+    <string name="wifi">WiFi</string>
+    <string name="connected_prefix">CONNECTED: %1$s</string>
+    <string name="scanning">ENABLED - SCANNING...</string>
+    <string name="disabled">DISABLED</string>
+    <string name="ems_offline">EMS SENSORS OFFLINE</string>
+    <string name="req_perms">REQUIRES PHONE &amp; LOCATION PERMISSIONS</string>
+
 </resources>

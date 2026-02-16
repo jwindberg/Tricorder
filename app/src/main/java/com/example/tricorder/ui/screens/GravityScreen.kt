@@ -9,6 +9,8 @@ import com.example.tricorder.ui.components.LcarsMagnitudeElement
 import com.example.tricorder.ui.components.LcarsNum3DElement
 import com.example.tricorder.ui.theme.LcarsSourceColors
 import com.example.tricorder.viewmodel.SensorData
+import androidx.compose.ui.res.stringResource
+import com.example.tricorder.R
 import kotlin.math.sqrt
 import kotlin.math.atan2
 import kotlin.math.asin
@@ -46,7 +48,7 @@ fun GravityScreen(sensorData: SensorData) {
             z = (z + 9.8f) / 19.6f, 
             az = az,
             alt = alt, 
-            label = "Absolute Vector",
+            label = stringResource(R.string.abs_vector),
             gridColor = color, 
             plotColor = LcarsSourceColors.COL_GRA_PLOT, // Explicit Orange Plot
             modifier = Modifier.weight(1f).fillMaxWidth()
@@ -58,7 +60,7 @@ fun GravityScreen(sensorData: SensorData) {
         LcarsMagnitudeElement(
             value = mag / 19.6f, // Normalize 0-2g (center 1g)
             history = sensorData.accelerometerHistory.map { it / 19.6f }, 
-            label = "Absolute Magnitude",
+            label = stringResource(R.string.abs_magnitude),
             gridColor = color,
             plotColor = LcarsSourceColors.COL_GRA_PLOT, // Explicit Orange Plot
             modifier = Modifier.weight(1f).fillMaxWidth()
@@ -70,7 +72,7 @@ fun GravityScreen(sensorData: SensorData) {
         LcarsNum3DElement(
             x = x, y = y, z = z, // Show raw m/s^2
             mag = mag, az = az, alt = alt,
-            label = "Absolute Data",
+            label = stringResource(R.string.abs_data),
             gridColor = color,
             plotColor = LcarsSourceColors.COL_GRA_PLOT, // Explicit Orange Plot
             modifier = Modifier.weight(1f).fillMaxWidth()
