@@ -27,7 +27,8 @@ data class SensorData(
     val humidity: Float? = null,
     val networkLocation: android.location.Location? = null,
     val gpsLocation: android.location.Location? = null,
-    val gnssStatus: android.location.GnssStatus? = null
+    val gnssStatus: android.location.GnssStatus? = null,
+    val declination: Float = 0f // Magnetic Declination in degrees
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -53,6 +54,7 @@ data class SensorData(
         if (networkLocation != other.networkLocation) return false
         if (gpsLocation != other.gpsLocation) return false
         if (gnssStatus != other.gnssStatus) return false
+        if (declination != other.declination) return false
 
         return true
     }
@@ -72,6 +74,7 @@ data class SensorData(
         result = 31 * result + (networkLocation?.hashCode() ?: 0)
         result = 31 * result + (gpsLocation?.hashCode() ?: 0)
         result = 31 * result + (gnssStatus?.hashCode() ?: 0)
+        result = 31 * result + declination.hashCode()
         return result
     }
 }
@@ -110,10 +113,23 @@ class SensorViewModel(application: Application) : AndroidViewModel(application),
         override fun onLocationChanged(location: android.location.Location) {
              android.util.Log.d("SensorViewModel", "Location Received from ${location.provider}: ${location.latitude}, ${location.longitude}")
              val currentData = _sensorData.value
+             val geoField = android.hardware.GeomagneticField(
+                 location.latitude.toFloat(),
+                 location.longitude.toFloat(),
+                 location.altitude.toFloat(),
+                 System.currentTimeMillis()
+             )
+             
              if (location.provider == android.location.LocationManager.GPS_PROVIDER) {
-                 _sensorData.value = currentData.copy(gpsLocation = location)
+                 _sensorData.value = currentData.copy(
+                     gpsLocation = location,
+                     declination = geoField.declination
+                 )
              } else {
-                 _sensorData.value = currentData.copy(networkLocation = location)
+                 _sensorData.value = currentData.copy(
+                     networkLocation = location,
+                     declination = geoField.declination
+                 )
              }
         }
         override fun onStatusChanged(provider: String?, status: Int, extras: android.os.Bundle?) {}
