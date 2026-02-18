@@ -55,6 +55,7 @@
     <string name="acoustic_analysis">Acoustic Analysis</string>
     <string name="waveform">Waveform</string>
     <string name="spectrum">Spectrum</string>
+    <string name="power">Power</string>
     <string name="audio_offline">AUDIO SENSORS OFFLINE - PERMISSION DENIED</string>
     
     <!-- Gravity/Mag Screen -->

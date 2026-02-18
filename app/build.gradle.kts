@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.tricorder"
+    namespace = "com.marsraver.tricorder"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.tricorder"
+        applicationId = "com.marsraver.tricorder"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
